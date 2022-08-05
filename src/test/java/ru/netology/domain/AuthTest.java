@@ -71,4 +71,18 @@ public class AuthTest {
                 .shouldHave(Condition.text("Неверно указан логин или пароль"))
                 .shouldBe(Condition.visible);
     }
+
+    @Test
+    void shouldNotRegisteredUserAuthTest() {
+        User user = DataGenerator.Registration.generateUser("active");
+        SelenideElement form = $(".form");
+
+        form.$("[data-test-id='login'] input").setValue(user.getLogin());
+        form.$("[data-test-id='password'] input").setValue(user.getPassword());
+        form.$(".button.button").click();
+
+        $(".notification .notification__content")
+                .shouldHave(Condition.text("Неверно указан логин или пароль"))
+                .shouldBe(Condition.visible);
+    }
 }
